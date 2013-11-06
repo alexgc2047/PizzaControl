@@ -16,28 +16,28 @@ function buscarCliente()
 }
 function procesarEventos()
 {
-    document.getElementById("info").style.visibility = 'visible';
+    document.getElementById("pdiv").style.visibility = 'visible';
     var status = document.getElementById("pgb");
     if(conexion.readyState == 4)
     {
-        status.style.width = "100%";
         document.getElementById("info").innerHTML = conexion.responseText;
+        document.getElementById("pdiv").style.visibility = 'hidden';
     }
     else if (conexion.readyState == 0)
     {
-        status.style.width = "20%";
+        status.style.width = "80%";
     }
     else if (conexion.readyState == 1)
     {
-        status.style.width = "40%";
+        status.style.width = "99%";
     }
     else if (conexion.readyState == 2)
     {
-        status.style.width = "60%"
+        status.style.width = "100%"
     }
     else if (conexion.readyState == 3)
     {
-        status.style.width = "80%"
+        status.style.width = "100%"
     }
 }
 function crearXMLHttpRequest()
