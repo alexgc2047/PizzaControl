@@ -2,10 +2,10 @@
 -- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 04, 2013 at 08:09 AM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 06-11-2013 a las 07:02:39
+-- Versión del servidor: 5.5.32
+-- Versión de PHP: 5.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `pizza`
+-- Base de datos: `pizza`
 --
 CREATE DATABASE IF NOT EXISTS `pizza` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE `pizza`;
@@ -25,24 +25,31 @@ USE `pizza`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cliente`
+-- Estructura de tabla para la tabla `cliente`
 --
 
 CREATE TABLE IF NOT EXISTS `cliente` (
   `ClientePK` int(10) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(40) CHARACTER SET latin1 NOT NULL,
   `Calle` varchar(40) CHARACTER SET latin1 NOT NULL,
-  `Número` int(20) NOT NULL,
+  `Numero` int(20) NOT NULL,
   `Colonia` varchar(20) CHARACTER SET latin1 NOT NULL,
-  `Telefono` int(15) NOT NULL,
+  `Telefono` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `CP` int(6) NOT NULL,
   PRIMARY KEY (`ClientePK`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`ClientePK`, `Nombre`, `Calle`, `Numero`, `Colonia`, `Telefono`, `CP`) VALUES
+(1, 'Alejandro Gómez', 'Leandro Valle', 403, 'Centro', '4131662791', 38500);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detallepedido`
+-- Estructura de tabla para la tabla `detallepedido`
 --
 
 CREATE TABLE IF NOT EXISTS `detallepedido` (
@@ -58,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `detallepedido` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `empleado`
+-- Estructura de tabla para la tabla `empleado`
 --
 
 CREATE TABLE IF NOT EXISTS `empleado` (
@@ -69,19 +76,20 @@ CREATE TABLE IF NOT EXISTS `empleado` (
   `TipoFK` int(10) NOT NULL,
   PRIMARY KEY (`EmpleadoPK`),
   KEY `TipoFK` (`TipoFK`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `empleado`
+-- Volcado de datos para la tabla `empleado`
 --
 
 INSERT INTO `empleado` (`EmpleadoPK`, `Nombre`, `Password`, `Usuario`, `TipoFK`) VALUES
-(1, 'Alejandro Gómez', 'alex123', 'alejandro', 1);
+(1, 'Alejandro Gómez', 'alex123', 'alejandro', 2),
+(2, 'Juan Carlos Arteaga', 'juanote1', 'juancho', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `insumos`
+-- Estructura de tabla para la tabla `insumos`
 --
 
 CREATE TABLE IF NOT EXISTS `insumos` (
@@ -95,24 +103,24 @@ CREATE TABLE IF NOT EXISTS `insumos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pedido`
+-- Estructura de tabla para la tabla `pedido`
 --
 
 CREATE TABLE IF NOT EXISTS `pedido` (
   `PedidoPK` int(10) NOT NULL AUTO_INCREMENT,
-  `Información` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `Informacion` varchar(20) CHARACTER SET latin1 NOT NULL,
   `Costo` int(10) NOT NULL,
   `ClienteFK` int(10) NOT NULL,
   `EmpleadoFK` int(10) NOT NULL,
   PRIMARY KEY (`PedidoPK`),
   KEY `ClienteFK` (`ClienteFK`),
   KEY `EmpleadoFK` (`EmpleadoFK`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `producto`
+-- Estructura de tabla para la tabla `producto`
 --
 
 CREATE TABLE IF NOT EXISTS `producto` (
@@ -127,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo`
+-- Estructura de tabla para la tabla `tipo`
 --
 
 CREATE TABLE IF NOT EXISTS `tipo` (
@@ -138,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `tipo` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tipo`
+-- Volcado de datos para la tabla `tipo`
 --
 
 INSERT INTO `tipo` (`TipoPK`, `Descripción`) VALUES
@@ -146,30 +154,30 @@ INSERT INTO `tipo` (`TipoPK`, `Descripción`) VALUES
 (2, 'Cajero');
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `detallepedido`
+-- Filtros para la tabla `detallepedido`
 --
 ALTER TABLE `detallepedido`
   ADD CONSTRAINT `detallepedido_ibfk_1` FOREIGN KEY (`ProductoFK`) REFERENCES `producto` (`ProductoPK`),
   ADD CONSTRAINT `detallepedido_ibfk_2` FOREIGN KEY (`PedidoFK`) REFERENCES `pedido` (`PedidoPK`);
 
 --
--- Constraints for table `empleado`
+-- Filtros para la tabla `empleado`
 --
 ALTER TABLE `empleado`
   ADD CONSTRAINT `empleado_ibfk_1` FOREIGN KEY (`TipoFK`) REFERENCES `tipo` (`TipoPK`);
 
 --
--- Constraints for table `insumos`
+-- Filtros para la tabla `insumos`
 --
 ALTER TABLE `insumos`
   ADD CONSTRAINT `insumos_ibfk_1` FOREIGN KEY (`EmpleadoFK`) REFERENCES `empleado` (`EmpleadoPK`);
 
 --
--- Constraints for table `pedido`
+-- Filtros para la tabla `pedido`
 --
 ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`ClienteFK`) REFERENCES `cliente` (`ClientePK`),

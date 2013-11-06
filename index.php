@@ -12,43 +12,12 @@
 
 <body>
 <?php
-	if(isset ($_REQUEST['inf']))
-	{ 
-		if ($_REQUEST['inf'] == 'err')
-		{
-			?><div class="alert alert-danger fade in">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<h4>Error de Autenticación!</h4>
-			<p>
-				Error de Usuario/Contraseña. <br />Inserta nuevamente tu información y asegurate que sea correcta.
-			</p>
-		  </div>
-		  <?php
-		}
-		if ($_REQUEST['inf'] == 'err2')
-		{
-			?><div class="alert alert-danger fade in">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<h4>Error de Autenticación!</h4>
-			<p>
-				No ha iniciado sesión.
-				Por favor, escriba su información y de clic en Iniciar Sesión.
-			</p>
-		  </div>
-		  <?php
-		}
-		if ($_REQUEST['inf'] == 'out')
-		{
-			?><div class="alert alert-success fade in">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<h4>Cierre Sesi&oacute;n!</h4>
-			<p>
-				Sesión terminada.<br /> Para volver a entrar al sistema escriba su informaci&oacute; nuevamente.
-			</p>
-		  </div>
-		  <?php
-		}
-	}
+    include ('funciones.php');
+    $f = new funciones();
+    if(isset ($_REQUEST['inf']))
+    {
+         echo $f->checkLogin($_REQUEST['inf']);
+    }
 ?>
 	<div class="container">
     	<h2 class="modal-title" style="text-align:center"><b>BIENVENIDO!</b></h2>
