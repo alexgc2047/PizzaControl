@@ -179,7 +179,8 @@ CREATE TABLE IF NOT EXISTS `tipo` (
 
 INSERT INTO `tipo` (`TipoPK`, `Descripción`) VALUES
 (1, 'Cajero'),
-(2, 'Administrador');
+(2, 'Administrador'),
+(3, 'Repartidor');
 
 --
 -- Restricciones para tablas volcadas
