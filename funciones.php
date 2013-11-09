@@ -61,7 +61,7 @@ class funciones
     }
     function checkSession($tipo)
     {
-        if ($tipo == 1)
+        if ($tipo == 2)
         {
             return '<!-- INICIO DEL PANEL DE REGISTRO DE NUEVO PEDIDO -->
                     <div class="modal fade" id="pedidos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -108,14 +108,33 @@ class funciones
                         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#compras">&nbsp;COMPRAS&nbsp;</button>
                     </div>';
         }
-        else if($tipo == 2)
+        else if($tipo == 1)
         {
-            return '<div class="container" align="center">
+            return '<!-- INICIO DEL PANEL DE BUSQUEDA/REGISTRO EMPLEADO -->
+                    <div class="modal fade" id="empleados" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">MEN&Uacute; Busqueda/Registro Empleado</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Seleccione la opci&oacute;n deseada.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary btn-lg" onClick="Empleado();">Buscar Empleado</button>
+                                    <button type="button" class="btn btn-primary btn-lg" onClick="registrarEmpleado();">Registrar Nuevo Empleado</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+			         <!-- INICIO DEL MENU PRINCIPAL DE ADMINISTRADOR -->
+			        <div class="container" align="center">
                     <h2 class="modal-title"><span class="glyphicon glyphicon-tasks"></span>&nbsp;MEN&Uacute; ADMINISTRADOR</h2>
                     <br /><br /><br />
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#">&nbsp;INVENTARIO PEDIDOS&nbsp;</button>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" onClick="Inventario();">&nbsp;INVENTARIO PEDIDOS&nbsp;</button>
                     &nbsp; &nbsp;
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#">&nbsp;EMPLEADOS&nbsp;</button>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#empleados">&nbsp;EMPLEADOS&nbsp;</button>
                 </div>';
         }
     }
@@ -144,7 +163,7 @@ class bd
     var $server;
     function open($servidor = 'localhost')
     {
-        $this->conexion = mysqli_connect($servidor, 'AlexGC', 'alex123');
+        $this->conexion = mysqli_connect($servidor, 'root', '');
     }
     function load()
     {

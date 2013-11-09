@@ -7,7 +7,8 @@
     $pass = $_POST['pass'];
     $bd->load();
     $bd->query("SET NAMES 'utf8' ");
-    $q = "SELECT * FROM `empleado` WHERE `Usuario`='".$user."' AND `Password`='".$pass."' LIMIT 1";
+    $q = "SELECT * FROM `usuario` u inner join `empleado` e on e.EmpleadoPK=u.UsuarioPK
+	         WHERE `Usuario`='".$user."' AND `Password`='".$pass."' LIMIT 1";
     $r = $bd->query($q);
     $n = $bd->rows($r);
     if ($n == 1)

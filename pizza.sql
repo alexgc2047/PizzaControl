@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
@@ -71,20 +71,48 @@ CREATE TABLE IF NOT EXISTS `detallepedido` (
 CREATE TABLE IF NOT EXISTS `empleado` (
   `EmpleadoPK` int(10) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(40) CHARACTER SET latin1 NOT NULL,
-  `Password` varchar(20) CHARACTER SET latin1 NOT NULL,
-  `Usuario` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `Calle` varchar(40) CHARACTER SET latin1 NOT NULL,
+  `Numero` int(20) NOT NULL,
+  `Colonia` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `Telefono` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `CP` int(6) NOT NULL,
+  `Horario` varchar(40) CHARACTER SET latin1 NOT NULL,
+  `Salario` varchar(40) CHARACTER SET latin1 NOT NULL,
   `TipoFK` int(10) NOT NULL,
   PRIMARY KEY (`EmpleadoPK`),
   KEY `TipoFK` (`TipoFK`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`EmpleadoPK`, `Nombre`, `Password`, `Usuario`, `TipoFK`) VALUES
-(1, 'Alejandro Gómez', 'alex123', 'alejandro', 2),
-(2, 'Juan Carlos Arteaga', 'juanote1', 'juancho', 1);
+INSERT INTO `empleado` (`EmpleadoPK`, `Nombre`, `Calle`, `Numero`, `Colonia`, `Telefono`, `CP`, `Horario`, `Salario`, `TipoFK`) VALUES
+(1, 'Alejandro Gómez', 'Irrigacion',20, 'Apaseo el Alto', '413-125-75-18', 36512, '07:00 - 17:00', '$1000', 2),
+(2, 'Juan Carlos Arteaga', 'Progreso',26, 'Celaya', '461-100-12-45', 38700, '17:00 - 20:00', '$500', 1),
+(3, 'Jorge Mendez', 'Lazaro Cardenas',1, 'Tarimoro', '466-116-23-10', 38710, '08:00 - 16:00', '$1000', 2);
+
+---------------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `UsuarioPK` int(10) NOT NULL AUTO_INCREMENT,
+  `Password` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `Usuario` varchar(20) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`UsuarioPK`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`UsuarioPK`, `Password`, `Usuario`) VALUES
+(1, 'alex123', 'alejandro'),
+(2, 'juanote1', 'juancho'),
+(3, 'koke01', 'jorge');
 
 -- --------------------------------------------------------
 
@@ -150,8 +178,8 @@ CREATE TABLE IF NOT EXISTS `tipo` (
 --
 
 INSERT INTO `tipo` (`TipoPK`, `Descripción`) VALUES
-(1, 'Administrador'),
-(2, 'Cajero');
+(1, 'Cajero'),
+(2, 'Administrador');
 
 --
 -- Restricciones para tablas volcadas
@@ -182,6 +210,12 @@ ALTER TABLE `insumos`
 ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`ClienteFK`) REFERENCES `cliente` (`ClientePK`),
   ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`EmpleadoFK`) REFERENCES `empleado` (`EmpleadoPK`);
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`UsuarioPK`) REFERENCES `empleado` (`EmpleadoPK`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

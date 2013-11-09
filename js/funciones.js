@@ -14,6 +14,26 @@ function buscarCliente()
     conexion.open('GET', 'buscarCliente.php?num=' + num, true);
     conexion.send(null);
 }
+function Empleado()
+{
+    window.location = "empleado.php";
+}
+function buscarEmpleado()
+{
+    var nom = document.getElementById("nombre").value;
+    conexion = crearXMLHttpRequest();
+    conexion.onreadystatechange = procesarEventos;
+    conexion.open('GET', 'buscarEmpleado.php?nombre=' + nom, true);
+    conexion.send(null);
+}
+function registrarEmpleado()
+{
+    window.location = "registrarEmpleado.php";
+}
+function Inventario()
+{
+    window.location = "inventario.php";
+}
 function procesarEventos()
 {
     document.getElementById("pdiv").style.visibility = 'visible';
